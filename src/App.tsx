@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { NewNotePage } from './components/NewNotePage'
 import { ViewNotePage } from './components/ViewNotePage'
 import { TooltipProvider } from '@/components/ui/tooltip'
-import { MinimalTiptapEditor } from './components/minimal-tiptap'
+// import { MinimalTiptapEditor } from './components/minimal-tiptap'
 
 interface Note {
   title: string  // Add this line
@@ -12,6 +12,7 @@ interface Note {
   timestamp: string
   duration: number
 }
+
 
 export default function App() {
   const [isWritingNote, setIsWritingNote] = useState(false)

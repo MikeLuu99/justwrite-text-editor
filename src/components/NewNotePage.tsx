@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { MinimalTiptapEditor } from './minimal-tiptap'
 import { Button } from '@/components/ui/button'
 import { ClipboardCopy, Moon, Sun } from 'lucide-react'
@@ -178,7 +178,7 @@ export function NewNotePage({ onClose }: NewNotePageProps) {
         </div>
         <MinimalTiptapEditor
           value={value}
-          onChange={setValue}
+          onChange={(newValue) => setValue(newValue as string)}
           throttleDelay={2000}
           className="w-full"
           editorContentClassName="p-5"
