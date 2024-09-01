@@ -1,4 +1,6 @@
 # Focused Text Editor
+<img width="1440" alt="Screenshot 2024-09-01 at 2 46 18 AM" src="https://github.com/user-attachments/assets/7e0678ed-c7b0-42be-9c2e-4b1bdb9c6f3b">
+<img width="1440" alt="Screenshot 2024-09-01 at 2 42 55 AM" src="https://github.com/user-attachments/assets/ea2d9aa0-1bb5-43b9-901f-58cd85c35404">
 
 ## Description
 
