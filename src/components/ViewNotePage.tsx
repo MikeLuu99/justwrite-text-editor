@@ -30,7 +30,7 @@ export function ViewNotePage({ note, onClose, onDelete }: ViewNotePageProps) {
       <main className="mx-auto w-full max-w-3xl">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">{note.title}</h1>
-          <div>
+          <div className="flex items-center justify-center">
             <Button onClick={onClose} variant="outline" className="mr-2">
               Back
             </Button>
