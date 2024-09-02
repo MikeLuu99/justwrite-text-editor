@@ -5,7 +5,7 @@
 
 ## Description
 
-Focused Text Editor is a unique writing tool designed to boost productivity by eliminating distractions. It forces users to focus on their writing by "locking" them into the editor for a set amount of time. If users attempt to switch tabs or leave the application, they risk losing their work.
+"Just Write" Text Editor is a unique writing tool designed to boost productivity by eliminating distractions. It forces users to focus on their writing by "locking" them into the editor for a set amount of time. If users attempt to switch tabs or leave the application, they risk losing their works.
 
 ## Features
 
@@ -13,12 +13,13 @@ Focused Text Editor is a unique writing tool designed to boost productivity by e
 - Customizable lock-in duration
 - Optional dark mode
 - Lose all writings if you switch tabs
+- Store in your browser local storage
 
 ## Installation
 
 ```
 git clone https://github.com/MikeLuu99/focused-text-editor.git
-cd focused-in-editor
+cd focused-text-editor
 npm install
 npm run dev
 ```
