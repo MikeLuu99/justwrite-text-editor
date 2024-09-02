@@ -18,10 +18,15 @@ export default function App() {
   const [isWritingNote, setIsWritingNote] = useState(false)
   const [notes, setNotes] = useState<Note[]>([])
   const [viewingNote, setViewingNote] = useState<Note | null>(null)
+  const [totalTime, setTotalTime] = useState(0)
 
   useEffect(() => {
     const savedNotes = JSON.parse(localStorage.getItem('notes') || '[]')
     setNotes(savedNotes)
+    
+    // Calculate total time
+    const total = savedNotes.reduce((acc: number, note: Note) => acc + note.duration, 0)
+    setTotalTime(total)
   }, [isWritingNote])
 
   const deleteNote = (index: number) => {
@@ -58,9 +63,10 @@ export default function App() {
             + Note
           </Button>
         </div>
-        <div className="mt-48 flex justify-center items-center">
+        <div className="mt-48 flex flex-col justify-center items-center">
           <div className="w-full">
-            <h2 className="text-2xl font-bold mb-4 text-center">Your Notes</h2>
+            <h2 className="text-3xl font-bold mb-4 text-center">Your Notes</h2>
+            <p className="text-center text-md mb-8">Total: {totalTime} {totalTime <= 1 ? 'minute' : 'minutes'}</p>
             {notes.length === 0 ? (
               <p className="text-center">No notes yet. Start writing!</p>
             ) : (
