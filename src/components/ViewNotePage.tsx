@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
-import { ClipboardCopy, Check } from 'lucide-react'
+import { ClipboardCopy, Check, Trash2 } from 'lucide-react'
 
 interface ViewNotePageProps {
   note: {
@@ -35,7 +35,7 @@ export function ViewNotePage({ note, onClose, onDelete }: ViewNotePageProps) {
               Back
             </Button>
             <Button onClick={onDelete} variant="destructive" className="mr-2">
-              Delete
+              <Trash2 className="w-4 h-4" />
             </Button>
             <Button onClick={handleCopyToClipboard} variant="secondary">
               {copySuccess ? <Check className="w-4 h-4 mr-2" /> : <ClipboardCopy className="w-4 h-4 mr-2" />}

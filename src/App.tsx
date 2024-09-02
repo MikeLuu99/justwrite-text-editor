@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { NewNotePage } from './components/NewNotePage'
 import { ViewNotePage } from './components/ViewNotePage'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import { Trash2 } from 'lucide-react'
 // import { MinimalTiptapEditor } from './components/minimal-tiptap'
 
 interface Note {
@@ -82,7 +83,7 @@ export default function App() {
                             View
                           </Button>
                           <Button onClick={() => deleteNote(index)} variant="destructive" size="sm">
-                            Delete
+                            <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
                       </div>
