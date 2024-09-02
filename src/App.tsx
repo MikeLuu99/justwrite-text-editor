@@ -5,6 +5,7 @@ import { NewNotePage } from './components/NewNotePage'
 import { ViewNotePage } from './components/ViewNotePage'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Trash2 } from 'lucide-react'
+import { AlertCircle } from 'lucide-react'
 // import { MinimalTiptapEditor } from './components/minimal-tiptap'
 
 interface Note {
@@ -20,6 +21,7 @@ export default function App() {
   const [notes, setNotes] = useState<Note[]>([])
   const [viewingNote, setViewingNote] = useState<Note | null>(null)
   const [totalTime, setTotalTime] = useState(0)
+  const [deleteIndex, setDeleteIndex] = useState<number | null>(null)
 
   useEffect(() => {
     const savedNotes = JSON.parse(localStorage.getItem('notes') || '[]')
@@ -30,10 +32,17 @@ export default function App() {
     setTotalTime(total)
   }, [isWritingNote])
 
-  const deleteNote = (index: number) => {
-    const updatedNotes = notes.filter((_, i) => i !== index)
-    setNotes(updatedNotes)
-    localStorage.setItem('notes', JSON.stringify(updatedNotes))
+  const confirmDelete = (index: number) => {
+    setDeleteIndex(index)
+  }
+
+  const handleDelete = () => {
+    if (deleteIndex !== null) {
+      const updatedNotes = notes.filter((_, i) => i !== deleteIndex)
+      setNotes(updatedNotes)
+      localStorage.setItem('notes', JSON.stringify(updatedNotes))
+      setDeleteIndex(null)
+    }
   }
 
   if (isWritingNote) {
@@ -73,8 +82,17 @@ export default function App() {
                 <ul className="space-y-4">
                   {notes.map((note, index) => (
                     <li key={index} className="border p-4 rounded-md">
+                      {deleteIndex === index ? (
+                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                          <strong className="font-bold">Delete this note?</strong>
+                          <div className="mt-2 flex justify-end space-x-2">
+                            <Button onClick={handleDelete} variant="destructive" size="sm">Yes, delete</Button>
+                            <Button onClick={() => setDeleteIndex(null)} variant="outline" size="sm">Cancel</Button>
+                          </div>
+                        </div>
+                      ) : null}
                       <p className="font-semibold">
-                        {note.title} - {new Date(note.timestamp).toLocaleString()} ({note.duration} min)
+                        {note.title} - {new Date(note.timestamp).toLocaleDateString()} ({note.duration} min)
                       </p>
                       <div className="mt-2 flex justify-between items-center">
                         <div dangerouslySetInnerHTML={{ __html: note.content.substring(0, 100) + '...' }} />
@@ -82,7 +100,7 @@ export default function App() {
                           <Button onClick={() => setViewingNote(note)} variant="outline" size="sm">
                             View
                           </Button>
-                          <Button onClick={() => deleteNote(index)} variant="destructive" size="sm">
+                          <Button onClick={() => confirmDelete(index)} variant="destructive" size="sm">
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
