@@ -78,7 +78,7 @@ export default function App() {
                       </p>
                       <div className="mt-2 flex justify-between items-center">
                         <div dangerouslySetInnerHTML={{ __html: note.content.substring(0, 100) + '...' }} />
-                        <div className="space-x-2">
+                        <div className="space-x-2 flex items-center justify-center">
                           <Button onClick={() => setViewingNote(note)} variant="outline" size="sm">
                             View
                           </Button>
