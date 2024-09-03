@@ -5,7 +5,6 @@ import { NewNotePage } from './components/NewNotePage'
 import { ViewNotePage } from './components/ViewNotePage'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Trash2 } from 'lucide-react'
-import { AlertCircle } from 'lucide-react'
 // import { MinimalTiptapEditor } from './components/minimal-tiptap'
 
 interface Note {
@@ -54,11 +53,6 @@ export default function App() {
       <ViewNotePage
         note={viewingNote}
         onClose={() => setViewingNote(null)}
-        onDelete={() => {
-          const index = notes.findIndex(n => n.timestamp === viewingNote.timestamp)
-          deleteNote(index)
-          setViewingNote(null)
-        }}
       />
     )
   }
