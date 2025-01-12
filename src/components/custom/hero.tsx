@@ -9,16 +9,20 @@ export function Hero() {
 
   return (
     <React.Fragment>
-      <div className="fixed top-4 right-4 flex gap-2 z-50">
+      <div className="fixed right-4 top-4 z-50 flex gap-2">
         <Button
           variant="outline"
           size="icon"
           onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
           aria-label={resolvedTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
         >
-          {resolvedTheme === 'dark' ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
+          {resolvedTheme === 'dark' ? (
+            <Sun className="h-[1.2rem] w-[1.2rem]" />
+          ) : (
+            <Moon className="h-[1.2rem] w-[1.2rem]" />
+          )}
         </Button>
-        <a href="https://github.com/Aslam97/shadcn-tiptap" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/MikeLuu99/justwrite-text-editor" target="_blank" rel="noopener noreferrer">
           <Button variant="outline" size="icon" aria-label="View on GitHub">
             <GitHubLogoIcon className="h-[1.2rem] w-[1.2rem]" />
           </Button>
