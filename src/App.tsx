@@ -8,12 +8,11 @@ import { Trash2 } from 'lucide-react'
 // import { MinimalTiptapEditor } from './components/minimal-tiptap'
 
 interface Note {
-  title: string  // Add this line
+  title: string // Add this line
   content: string
   timestamp: string
   duration: number
 }
-
 
 export default function App() {
   const [isWritingNote, setIsWritingNote] = useState(false)
@@ -24,10 +23,14 @@ export default function App() {
 
   useEffect(() => {
     const savedNotes = JSON.parse(localStorage.getItem('notes') || '[]')
-    setNotes(savedNotes)
+    // Sort notes by timestamp in descending order (latest first)
+    const sortedNotes = savedNotes.sort(
+      (a: Note, b: Note) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    )
+    setNotes(sortedNotes)
 
     // Calculate total time
-    const total = savedNotes.reduce((acc: number, note: Note) => acc + note.duration, 0)
+    const total = sortedNotes.reduce((acc: number, note: Note) => acc + note.duration, 0)
     setTotalTime(total)
   }, [isWritingNote])
 
@@ -49,12 +52,7 @@ export default function App() {
   }
 
   if (viewingNote) {
-    return (
-      <ViewNotePage
-        note={viewingNote}
-        onClose={() => setViewingNote(null)}
-      />
-    )
+    return <ViewNotePage note={viewingNote} onClose={() => setViewingNote(null)} />
   }
 
   return (
@@ -62,40 +60,44 @@ export default function App() {
       <div className="px-4 py-12 sm:py-24">
         <main className="mx-auto w-full max-w-3xl">
           <Hero />
-          <div className="mt-36 flex justify-center gap-4 sm:mt-48 mb-12">
+          <div className="mb-12 mt-36 flex justify-center gap-4 sm:mt-48">
             <Button onClick={() => setIsWritingNote(true)} size="lg">
               + Note
             </Button>
           </div>
-          <div className="mt-48 flex flex-col justify-center items-center">
+          <div className="mt-48 flex flex-col items-center justify-center">
             <div className="w-full">
-              <h2 className="text-2xl font-bold mb-4 text-center">Your Notes</h2>
+              <h2 className="mb-4 text-center text-2xl font-bold">Your Notes</h2>
               {notes.length === 0 ? (
                 <p className="text-center">No notes yet. Start writing!</p>
               ) : (
                 <ul className="space-y-4">
                   {notes.map((note, index) => (
-                    <li key={index} className="border p-4 rounded-md">
+                    <li key={index} className="rounded-md border p-4">
                       {deleteIndex === index ? (
-                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                        <div className="relative mb-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
                           <strong className="font-bold">Delete this note?</strong>
                           <div className="mt-2 flex justify-end space-x-2">
-                            <Button onClick={handleDelete} variant="destructive" size="sm">Yes, delete</Button>
-                            <Button onClick={() => setDeleteIndex(null)} variant="outline" size="sm">Cancel</Button>
+                            <Button onClick={handleDelete} className="dark:text-black" variant="destructive" size="sm">
+                              Yes, delete
+                            </Button>
+                            <Button onClick={() => setDeleteIndex(null)} variant="outline" size="sm">
+                              Cancel
+                            </Button>
                           </div>
                         </div>
                       ) : null}
                       <p className="font-semibold">
                         {note.title} - {new Date(note.timestamp).toLocaleDateString()} ({note.duration} min)
                       </p>
-                      <div className="mt-2 flex justify-between items-center">
+                      <div className="mt-2 flex items-center justify-between">
                         <div dangerouslySetInnerHTML={{ __html: note.content.substring(0, 100) + '...' }} />
-                        <div className="space-x-2 flex items-center justify-center">
+                        <div className="flex items-center justify-center space-x-2">
                           <Button onClick={() => setViewingNote(note)} variant="outline" size="sm">
                             View
                           </Button>
                           <Button onClick={() => confirmDelete(index)} variant="destructive" size="sm">
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="h-4 w-4 dark:text-black" />
                           </Button>
                         </div>
                       </div>
@@ -103,7 +105,9 @@ export default function App() {
                   ))}
                 </ul>
               )}
-              <p className="text-center text-md mb-8">Total: {totalTime} {totalTime <= 1 ? 'minute' : 'minutes'}</p>
+              <p className="text-md mb-8 text-center">
+                Total: {totalTime} {totalTime <= 1 ? 'minute' : 'minutes'}
+              </p>
             </div>
           </div>
         </main>
